@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+
+  master:
+    image: spark-hadoop-cluster:latest
+    hostname: cluster-master
+    # restart: always
+    depends_on:
+      - slave-1
+      - slave-2
+    expose:
+      - 1-65535
+    ports:
+      # YARN UI
+      - 8088:8088
+      # SPARK MASTER WEBUI
+      - 9090:8080
+      # HADOOP
+      - 50070:50070
+      - 50090:50090
+
+    entrypoint: ["/bin/bash", "-c", "service ssh start && \
+                  /bin/bash /usr/local/hadoop/spark-services.sh && \
+                  tail -f /dev/null"]
+    tty: true
+
+  slave-1:
+    image: spark-hadoop-cluster:latest
+    hostname: cluster-slave-1
+    expose:
+      - 1-65535
+    tty: true
+  
+  slave-2:
+    image: spark-hadoop-cluster:latest
+    hostname: cluster-slave-2
+    expose:
+      - 1-65535
+    tty: true
