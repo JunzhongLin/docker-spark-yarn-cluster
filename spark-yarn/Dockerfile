@@ -28,6 +28,7 @@ RUN rm /spark.tar.gz
 
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV SPARK_HOME=/usr/local/spark
+ENV JAVA_HOME=/usr/local/openjdk-8
 ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME:sbin
 
 RUN mkdir -p $HADOOP_HOME/hdfs/namenode \
@@ -64,4 +65,4 @@ EXPOSE 10020 19888
 EXPOSE 8030 8031 8032 8033 8040 8042 8088
 EXPOSE 49707 2122 7001 7002 7003 7004 7005 7006 7007 8888 9000
 
-ENTRYPOINT ['/bin/bash', '/entrypoint.sh']
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
